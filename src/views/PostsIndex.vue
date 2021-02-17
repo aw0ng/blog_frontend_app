@@ -8,7 +8,13 @@
         <option v-for="post in posts" v-bind:key="post.id">{{ post.title }}</option>
       </datalist>
     </p>
-    <div class="row">
+    <div
+      is="transition-group"
+      class="row"
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
       <div class="col-sm-3" v-for="post in filterBy(posts, titleFilter)" v-bind:key="post.id">
         <div class="card">
           <img v-bind:src="post.image" v-bind:alt="post.name" />
