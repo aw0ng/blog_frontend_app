@@ -1,8 +1,13 @@
 <template>
-  <div class="home">
+  <div class="posts-index">
     <h1>All Posts</h1>
     Search by title:
-    <input v-model="titleFilter" type="text" />
+    <input v-model="titleFilter" type="text" list="post-titles" />
+    <p>
+      <datalist id="post-titles">
+        <option v-for="post in posts" v-bind:key="post.id">{{ post.title }}</option>
+      </datalist>
+    </p>
     <div class="row">
       <div class="col-sm-3" v-for="post in filterBy(posts, titleFilter)" v-bind:key="post.id">
         <div class="card">
