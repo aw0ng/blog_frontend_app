@@ -1,32 +1,29 @@
 <template>
-  <div>
-    <h1>{{ post.title }}</h1>
-    <img v-bind:src="post.image" v-bind:alt="post.name" />
+  <div class="posts-show">
+    <h2>{{ post.title }}</h2>
     <p>{{ post.body }}</p>
+    <img v-bind:src="post.url" v-bind:alt="post.title" />
+    <router-link v-bind:to="`/posts/${post.id}/edit`">Edit post</router-link>
+    <p>
+      <router-link to="/posts">Back to all posts</router-link>
+    </p>
   </div>
 </template>
 
-<style></style>
-
 <script>
 import axios from "axios";
-
 export default {
   data: function() {
     return {
       post: {},
     };
   },
-  created: function() {},
-  methods: {
-    showPosts: function() {
-      //  + this.$route.params.id
-      axios.get("/api/posts/1").then(response => {
-        // "posts show",
-        console.log(response.data);
-        this.post = response.data;
-      });
-    },
+  created: function() {
+    axios.get("/api/posts/" + this.$route.params.id).then(response => {
+      console.log("posts show", response);
+      this.post = response.data;
+    });
   },
+  methods: {},
 };
 </script>

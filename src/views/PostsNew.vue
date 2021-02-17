@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
+    <img v-if="status" v-bind:src="`https://http.cat/${status}`" alt="" />
     <div class="form-group">
       <label>Title:</label>
       <input type="text" class="form-control" v-model="newPostTitle" />
@@ -8,16 +9,22 @@
     <div class="form-group">
       <label>Body:</label>
       <input type="email" class="form-control" v-model="newPostBody" />
+      <small>{{ 50 - newPostBody.length }} characters remaining</small>
+      <div v-if="newPostBody.length > 50" :class="{ 'red-border': inputError }"></div>
     </div>
     <div class="form-group">
       <label>Image</label>
       <input type="password" class="form-control" v-model="newPostImage" />
     </div>
-    <button v-on:click="createPosts()">Submit</button>
+    <button v-on:click="createPost()">Submit</button>
   </div>
 </template>
 
-<style></style>
+<style>
+.red-border {
+  border: 1px solid #f00;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -29,11 +36,17 @@ export default {
       newPostTitle: "",
       newPostBody: "",
       newPostImage: "",
+      status: "",
+      inputError: true,
     };
   },
   created: function() {},
   methods: {
-    createPosts: function() {
+    toggleBorder: function(event) {
+      this.inputError = true;
+      event.target.classList.remove("red-border");
+    },
+    createPost: function() {
       var params = {
         title: this.newPostTitle,
         body: this.newPostBody,
@@ -50,6 +63,7 @@ export default {
         })
         .catch(error => {
           console.log("posts create error", error.response);
+          this.status = error.response.status;
         });
     },
   },
