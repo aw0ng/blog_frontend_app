@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
-    <img v-if="status" v-bind:src="`https://http.cat/${status}`" alt="" />
+    <img v-if="status" v-bind:src="`https://http.cat/${status}`" v-on:click="status = ''" alt="" />
     <div class="form-group">
       <label>Title:</label>
       <input type="text" class="form-control" v-model="newPostTitle" />
