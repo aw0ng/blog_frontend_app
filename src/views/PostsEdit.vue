@@ -11,7 +11,9 @@
       <input type="text" class="form-control" v-model="body" />
       Image:
       <input type="text" class="form-control" v-model="image" />
-      <input type="submit" class="btn btn-primary" value="Update" />
+      <button v-on:click="updatePost(currentPost)">Update</button>
+      <!-- <button v-if="currentPost.is_owner" v-on:click="destroyPost(currentPost)">Destroy</button> -->
+      <button>Close</button>
     </form>
   </div>
 </template>
