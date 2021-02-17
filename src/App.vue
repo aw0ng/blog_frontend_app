@@ -16,6 +16,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+          -->
           <li class="nav-item active">
             <a class="nav-link" href="http://localhost:8080/posts">
               Home
@@ -54,6 +55,25 @@
         </form>
       </div>
     </nav>
+
+    <div id="nav">
+      <router-link to="/">Home</router-link>
+      |
+      <router-link to="/posts">All Posts</router-link>
+      |
+      <router-link to="/posts/new">New Post</router-link>
+      |
+      <!-- <router-link to="/signup">Signup</router-link> -->
+      <router-link v-if="!isLoggedIn()" to="/signup">Signup</router-link>
+      |
+      <!-- <router-link to="/login">Login</router-link> -->
+      <router-link v-if="!isLoggedIn()" to="/login">Login</router-link>
+      |
+      <!-- <router-link to="/logout">Logout</router-link> -->
+      <router-link v-if="isLoggedIn()" to="/logout">Logout</router-link>
+      |
+    </div>
+
     <div class="container">
       <router-view />
     </div>
@@ -73,3 +93,13 @@ body {
   font-size: 4em !important;
 }
 </style>
+
+<script>
+export default {
+  methods: {
+    isLoggedIn: function() {
+      return localStorage.getItem("jwt");
+    },
+  },
+};
+</script>
