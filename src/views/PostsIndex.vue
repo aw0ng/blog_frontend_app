@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <h1>All Posts</h1>
+    Search by title:
+    <input v-model="titleFilter" type="text" />
     <div class="row">
-      <div class="col-sm-3" v-for="post in posts" v-bind:key="post.id">
+      <div class="col-sm-3" v-for="post in filterBy(posts, titleFilter)" v-bind:key="post.id">
         <div class="card">
           <img v-bind:src="post.image" v-bind:alt="post.name" />
           <div class="card-body">
@@ -20,11 +22,14 @@
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       posts: [],
+      titleFilter: "",
     };
   },
   created: function() {
